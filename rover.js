@@ -6,6 +6,8 @@ let right = 1;
 let forward = -4;
 let backward = 4;
 let firstprint = true;
+let canGoRight = true;
+let canGoLeft = false;
 
 //funcao que envia o comando "mover para esquerda" para a lista de comandos a serem executados, as proximas 3 funcoes seguem a mesma formatacao
 function esquerda(){
@@ -78,68 +80,106 @@ function enviar(){
         let positionTest = currentPosition + movementValue;
         
         //um IF ELSE que move o rover caso o teste de posicao de um resultado entre 0 e 15 ou mantem o rover na mesma posicao em caso de algum outro resultado
-        if(positionTest>=0 && positionTest<=15){
-            currentPosition = currentPosition + movementValue;
+        //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
+        if(positionTest<0 && positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
+            movementValue = positionBackup
+            console.log("sucess")
         }
         else{
-            movementValue = positionBackup
+            currentPosition = currentPosition + movementValue;
+            console.log("fail")
         }
+
+        //essa parte muda o mapa, eu sinto que tem algum jeito menos extenso de fazer isso
+        //ela tambem muda a bool que define se o rover esta em alguma borda da matriz, caso esteja, o IF ELSE acima nao vai deixar com que ele se mova verticalmente usando movimentos laterais
+        switch(currentPosition){
+
+            case 0:
+                document.getElementById("map").src="map0.png";
+                canGoRight = true;
+                canGoLeft = false;
+                break;
+                case 1:
+                    document.getElementById("map").src="map1.png";
+                    canGoRight = true;
+                    canGoLeft = true;
+                    break;
+                    case 2:
+                        document.getElementById("map").src="map2.png";
+                        canGoRight = true;
+                        canGoLeft = true;
+                        break;
+                        case 3:
+                            document.getElementById("map").src="map3.png";
+                            canGoRight = false;
+                            canGoLeft = true;
+                            break;
+                            case 4:
+                                document.getElementById("map").src="map4.png";
+                                canGoRight = true;
+                                canGoLeft = false;
+                                break;
+                                case 5:
+                                    document.getElementById("map").src="map5.png";
+                                    canGoRight = true;
+                                    canGoLeft = true;
+                                    break;
+                                    case 6:
+                                        document.getElementById("map").src="map6.png";
+                                        canGoRight = true;
+                                        canGoLeft = true;
+                                        break;
+                                        case 7:
+                                            document.getElementById("map").src="map7.png";
+                                            canGoRight = false;
+                                            canGoLeft = true;
+                                            break;
+                                            case 8:
+                                                document.getElementById("map").src="map8.png";
+                                                canGoRight = true;
+                                                canGoLeft = false;
+                                                break;
+                                                case 9:
+                                                    document.getElementById("map").src="map9.png";
+                                                    canGoRight = true;
+                                                    canGoLeft = true;
+                                                    break;
+                                                    case 10:
+                                                        document.getElementById("map").src="map10.png";
+                                                        canGoRight = true;
+                                                        canGoLeft = true;
+                                                        break;
+                                                        case 11:
+                                                            document.getElementById("map").src="map11.png";
+                                                            canGoRight = false;
+                                                            canGoLeft = true;
+                                                            break;
+                                                            case 12:
+                                                                document.getElementById("map").src="map12.png";
+                                                                canGoRight = true;
+                                                                canGoLeft = false;
+                                                                break;
+                                                                case 13:
+                                                                    document.getElementById("map").src="map13.png";
+                                                                    canGoRight = true;
+                                                                    canGoLeft = true;
+                                                                    break;
+                                                                    case 14:
+                                                                        document.getElementById("map").src="map14.png";
+                                                                        canGoRight = true;
+                                                                        canGoLeft = true;
+                                                                        break;
+                                                                        case 15:
+                                                                            document.getElementById("map").src="map15.png";
+                                                                            canGoRight = false;
+                                                                            canGoLeft = true;
+                                                                            break;
+                
+            }
     }
 
     console.log(currentPosition);
-    //essa parte muda o mapa, eu sinto que tem algum jeito menos extenso de fazer isso
-    switch(currentPosition){
-
-    case 0:
-        document.getElementById("map").src="map0.png";
-        break;
-        case 1:
-            document.getElementById("map").src="map1.png";
-            break;
-            case 2:
-                document.getElementById("map").src="map2.png";
-                break;
-                case 3:
-                    document.getElementById("map").src="map3.png";
-                    break;
-                    case 4:
-                        document.getElementById("map").src="map4.png";
-                        break;
-                        case 5:
-                            document.getElementById("map").src="map5.png";
-                            break;
-                            case 6:
-                                document.getElementById("map").src="map6.png";
-                                break;
-                                case 7:
-                                    document.getElementById("map").src="map7.png";
-                                    break;
-                                    case 8:
-                                        document.getElementById("map").src="map8.png";
-                                        break;
-                                        case 9:
-                                            document.getElementById("map").src="map9.png";
-                                            break;
-                                            case 10:
-                                                document.getElementById("map").src="map10.png";
-                                                break;
-                                                case 11:
-                                                    document.getElementById("map").src="map11.png";
-                                                    break;
-                                                    case 12:
-                                                        document.getElementById("map").src="map12.png";
-                                                        break;
-                                                        case 13:
-                                                            document.getElementById("map").src="map13.png";
-                                                            break;
-                                                            case 14:
-                                                                document.getElementById("map").src="map14.png";
-                                                                break;
-                                                                case 15:
-                                                                    document.getElementById("map").src="map15.png";
-                                                                    break;
-        
-    }
+    
 
     //atualiza o texto de posicao para mostrar a posicao do rover
     document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
