@@ -54,6 +54,20 @@ footer{
     position: absolute;
     bottom: 0;
     left: 0;
+    margin-left: 5px;
+}
+#github{
+    color: black;
+    font-family: Arial;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.25vw;
+   
+}
+#github:hover{
+    color: blue;
 }
 #map{
     width: 250px;
