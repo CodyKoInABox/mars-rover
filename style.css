@@ -1,0 +1,63 @@
+body{
+    background-color: aqua;
+    background-image: url(rover.png);
+    background-size: 100%;
+}
+#buttoncontainer{
+    margin: auto;
+    width: 500px;
+    margin-top: 2.5%;
+    background-color: rgba(0, 0, 0, 0.250);
+    border-radius: 40px;
+}
+.button{
+    width: 250px;
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 10px;
+}
+.button:hover{
+    background-color: hsl(0, 0%, 85%);
+}
+#title{
+    text-align: center;
+    font-family: arial;
+    margin-bottom: 0px;
+}
+.position{
+    margin-top: 5%;
+    text-align: center;
+    font-family: arial;
+    font-size: larger;
+    font-weight: bolder;
+}
+.historico{
+    margin-top: 15px;
+    text-align: center;
+    font-family: arial;
+    font-weight: bold;
+}
+#enviar{
+    width: 100px;
+    margin-left: 200px;
+    margin-top: 40px;
+}
+#frente{
+    margin-left: 125px;
+}
+#tras{
+    margin-left: 125px;
+}
+
+footer{
+    font-family: arial;
+    font-weight: bolder;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+#map{
+    width: 250px;
+    margin-left: 125px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}

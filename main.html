@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="mars.png">
+    <title>Mars Rover</title>
+</head>
+<body>
+    <script src="rover.js"></script>
+    <div id="buttoncontainer">
+        <h1 id="title">MARS ROVER</h1>
+        <img src="map0.png" id="map">
+        <button class="button" id="frente" onclick="frente()"><h1>FRENTE</h1></button>
+        <button class="button" onclick="esquerda()"><h1>ESQUERDA</h1></button><button class="button" onclick="direita()"><h1>DIREITA</h1></button>
+        <button class="button" id="tras" onclick="tras()"><h1>TRAS</h1></button>
+        <button class="button" id="enviar" onclick="enviar()"><h1>Enviar</h1></button>
+        <p class="position" id="position">Posicao = 0</p>
+        <p class="historico" id="historico">Movimentos pendentes: </p>
+    </div>
+
+
+
+    <footer>Maruan Biasi, 2023.</footer>
+</body>
+</html>
