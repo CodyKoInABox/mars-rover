@@ -83,11 +83,9 @@ function enviar(){
         //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
         if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
             movementValue = positionBackup
-            console.log("sucess")
         }
         else{
             currentPosition = currentPosition + movementValue;
-            console.log("fail")
         }
 
         //essa parte muda o mapa, eu sinto que tem algum jeito menos extenso de fazer isso
@@ -177,9 +175,6 @@ function enviar(){
                 
             }
     }
-
-    console.log(currentPosition);
-    
 
     //atualiza o texto de posicao para mostrar a posicao do rover
     document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
