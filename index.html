@@ -12,6 +12,14 @@
     <script src="rover.js"></script>
     <div id="buttoncontainer">
         <h1 id="title">MARS ROVER</h1>
+        <div class="switchcontainer">
+            <p class="mode">MODO:</p>
+            <p class="help">?</p>
+        <label class="switch">
+            <input type="checkbox" id="modeswitch" onclick="modeswitch()">
+            <span class="slider round"></span>
+          </label>
+        </div>
         <img src="map0.png" id="map">
         <button class="button" id="frente" onclick="frente()"><h1>FRENTE</h1></button>
         <button class="button" onclick="esquerda()"><h1>ESQUERDA</h1></button><button class="button" onclick="direita()"><h1>DIREITA</h1></button>

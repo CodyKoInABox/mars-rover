@@ -9,6 +9,7 @@ let firstprint = true;
 let canGoRight = true;
 let canGoLeft = false;
 let rightBorder = [3, 7, 11, 15];
+let mode = false;
 
 //funcao que envia o comando "mover para esquerda" para a lista de comandos a serem executados, as proximas 3 funcoes seguem a mesma formatacao
 function esquerda(){
@@ -70,44 +71,51 @@ function tras(){
 function enviar(){
     //cria um backup da posicao atual
     let positionBackup = currentPosition;
-    for(let i = 0; i<array.length; i++){
-        //faz com que o valor de movimento seja igual ao movimento a ser executado, ou seja, igual a algum valor da lista (array) de movimentos a serem executados
-        let movementValue = parseFloat(array[i]);
-        //testa a posicao para garantir que o rover nao saia da matriz a seguir:
-        //00-01-02-03
-        //04-05-06-07
-        //08-09-10-11
-        //12-13-14-15
-        let positionTest = currentPosition + movementValue;
 
-        //um IF ELSE que move o rover caso o teste de posicao de um resultado entre 0 e 15 ou mantem o rover na mesma posicao em caso de algum outro resultado
-        //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
-        if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
-            movementValue = positionBackup
+        for(let i = 0; i<array.length; i++){
+            //faz com que o valor de movimento seja igual ao movimento a ser executado, ou seja, igual a algum valor da lista (array) de movimentos a serem executados
+            let movementValue = parseFloat(array[i]);
+            //testa a posicao para garantir que o rover nao saia da matriz a seguir:
+            //00-01-02-03
+            //04-05-06-07
+            //08-09-10-11
+            //12-13-14-15
+            let positionTest = currentPosition + movementValue;
+    
+            //um IF ELSE que move o rover caso o teste de posicao de um resultado entre 0 e 15 ou mantem o rover na mesma posicao em caso de algum outro resultado
+            //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
+            if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
+                //se estiver no modo false, ou seja, modo A, cancela APENAS o movimento invalido
+                if(mode==false){
+                movementValue = positionBackup
+            }
+            //se estiver no modo true modo, ou seja, modo A, cancela TODOS os movimentos APOS o movimento invalido
+            else{
+                i = array.length + 1;
+            }
+            }
+            else{
+                currentPosition = currentPosition + movementValue;
+            }
+    
+            //IF ELSE que verifica se a posicao atual esta em alguma borda da matriz e muda as bools que definem se o rover esta em uma borda ou nao de acordo, caso esteja em uma borda, nao deixa o rover realizar movimentos verticais usando movimentos laterais, ou seja, nao deixa ir da posicao 3 para a 4 usando o movimento "direita"
+            //caso a posicao seja 0 OU a posicao seja divisil por 4, ja que os unicos numeros divisiveis por 4 sao os da borda esquerda, nota-se que 0/4=infinidade, e o metodo isInteger considera inifinidade um int, logo, o codigo acaba considerando 0 divisivel por 4
+            if(Number.isInteger(currentPosition/4)){
+                canGoLeft = false;
+                canGoRight = true;
+            }
+            //caso a posicao esteja em uma array de posicoes, sabe-se que ela esta na borda direita, tentei usar operacoes matematicas aqui mas nao cheguei em nenhuma que desse um resultado para 3, 7, 11 e 15 e outro para os demais numeros da matriz
+            else if(rightBorder.includes(currentPosition)){
+                canGoLeft = true;
+                canGoRight = false;
+            }
+            //se chegar ate esse else significa que nao esta em nenhuma das bordas
+            else{
+                canGoLeft = true;
+                canGoRight = true;
+            }    
         }
-        else{
-            currentPosition = currentPosition + movementValue;
-        }
-
-        //IF ELSE que verifica se a posicao atual esta em alguma borda da matriz e muda as bools que definem se o rover esta em uma borda ou nao de acordo, caso esteja em uma borda, nao deixa o rover realizar movimentos verticais usando movimentos laterais, ou seja, nao deixa ir da posicao 3 para a 4 usando o movimento "direita"
-        //caso a posicao seja 0 OU a posicao seja divisil por 4, ja que os unicos numeros divisiveis por 4 sao os da borda esquerda, nota-se que 0/4=infinidade, e o metodo isInteger considera inifinidade um int, logo, o codigo acaba considerando 0 divisivel por 4
-        if(Number.isInteger(currentPosition/4)){
-            canGoLeft = false;
-            canGoRight = true;
-        }
-        //caso a posicao esteja em uma array de posicoes, sabe-se que ela esta na borda direita, tentei usar operacoes matematicas aqui mas nao cheguei em nenhuma que desse um resultado para 3, 7, 11 e 15 e outro para os demais numeros da matriz
-        else if(rightBorder.includes(currentPosition)){
-            canGoLeft = true;
-            canGoRight = false;
-        }
-        //se chegar ate esse else significa que nao esta em nenhuma das bordas
-        else{
-            canGoLeft = true;
-            canGoRight = true;
-        }
-
-        
-    }
+    
 
     //mudar a imagem do mapa para o mapa correspondente a posicao atual
     document.getElementById("map").src="map"+currentPosition+".png";
@@ -119,4 +127,15 @@ function enviar(){
     array = [];
     //volta a variavel "firstprint" para true, desse jeito, o proximo movimento na lista de movimentos pendentes NAO tera uma virgula antes
     firstprint = true;
+}
+
+
+//funcao que muda a bool "mode" dependendo do switch que tem em cima do mapa, o valor "true" corresponde ao modo B e o valor "false" corresponde ao modo A
+function modeswitch(){
+    if(document.getElementById("modeswitch").checked){
+        mode = true;
+    }
+    else{
+        mode = false;
+    }
 }
