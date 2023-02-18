@@ -8,7 +8,7 @@ let backward = 4;
 let firstprint = true;
 let canGoRight = true;
 let canGoLeft = false;
-//eu sinto que tem um jeito menos extenso de definir estas variaveis
+//eu sinto que tem um jeito menos extenso de definir estas variaveis com as imagens
 let map0 = "map0.png";
 let map1 = "map1.png";
 let map2 = "map2.png";
@@ -26,6 +26,7 @@ let map13 = "map13.png";
 let map14 = "map14.png";
 let map15 = "map15.png";
 let mapArray = [map0, map1, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12, map13, map14, map15];
+let rightBorder = [3, 7, 11, 15];
 
 //funcao que envia o comando "mover para esquerda" para a lista de comandos a serem executados, as proximas 3 funcoes seguem a mesma formatacao
 function esquerda(){
@@ -96,7 +97,7 @@ function enviar(){
         //08-09-10-11
         //12-13-14-15
         let positionTest = currentPosition + movementValue;
-        
+
         //um IF ELSE que move o rover caso o teste de posicao de um resultado entre 0 e 15 ou mantem o rover na mesma posicao em caso de algum outro resultado
         //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
         if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
@@ -106,76 +107,28 @@ function enviar(){
             currentPosition = currentPosition + movementValue;
         }
 
-        //ela tambem muda a bool que define se o rover esta em alguma borda da matriz, caso esteja, o IF ELSE acima nao vai deixar com que ele se mova verticalmente usando movimentos laterais
-        //eu sinto que tem algum jeito menos extenso de fazer isso, mas ainda nao consegui implementar sem dar erro
-        switch(currentPosition){
+        //IF ELSE que verifica se a posicao atual esta em alguma borda da matriz e muda as bools que definem se o rover esta em uma borda ou nao de acordo, caso esteja em uma borda, nao deixa o rover realizar movimentos verticais usando movimentos laterais, ou seja, nao deixa ir da posicao 3 para a 4 usando o movimento "direita"
+        //caso a posicao seja 0 OU a posicao seja divisil por 4, ja que os unicos numeros divisiveis por 4 sao os da borda esquerda, nota-se que 0/4=infinidade, e o metodo isInteger considera inifinidade um int, logo, o codigo acaba considerando 0 divisivel por 4
+        if(Number.isInteger(currentPosition/4)){
+            canGoLeft = false;
+            canGoRight = true;
+            console.log("left border");
+        }
+        //caso a posicao esteja em uma array de posicoes, sabe-se que ela esta na borda direita, tentei usar operacoes matematicas aqui mas nao cheguei em nenhuma que desse um resultado para 3, 7, 11 e 15 e outro para os demais numeros da matriz
+        else if(rightBorder.includes(currentPosition)){
+            canGoLeft = true;
+            canGoRight = false;
+            console.log("right border");
+        }
+        //se chegar ate esse else significa que nao esta em nenhuma das bordas
+        else{
+            canGoLeft = true;
+            canGoRight = true;
+            console.log("not a border");
+        }
+        console.log(currentPosition)
 
-            case 0:
-                canGoRight = true;
-                canGoLeft = false;
-                break;
-                case 1:
-                    canGoRight = true;
-                    canGoLeft = true;
-                    break;
-                    case 2:
-                        canGoRight = true;
-                        canGoLeft = true;
-                        break;
-                        case 3:
-                            canGoRight = false;
-                            canGoLeft = true;
-                            break;
-                            case 4:
-                                canGoRight = true;
-                                canGoLeft = false;
-                                break;
-                                case 5:
-                                    canGoRight = true;
-                                    canGoLeft = true;
-                                    break;
-                                    case 6:
-                                        canGoRight = true;
-                                        canGoLeft = true;
-                                        break;
-                                        case 7:
-                                            canGoRight = false;
-                                            canGoLeft = true;
-                                            break;
-                                            case 8:
-                                                canGoRight = true;
-                                                canGoLeft = false;
-                                                break;
-                                                case 9:
-                                                    canGoRight = true;
-                                                    canGoLeft = true;
-                                                    break;
-                                                    case 10:
-                                                        canGoRight = true;
-                                                        canGoLeft = true;
-                                                        break;
-                                                        case 11:
-                                                            canGoRight = false;
-                                                            canGoLeft = true;
-                                                            break;
-                                                            case 12:
-                                                                canGoRight = true;
-                                                                canGoLeft = false;
-                                                                break;
-                                                                case 13:
-                                                                    canGoRight = true;
-                                                                    canGoLeft = true;
-                                                                    break;
-                                                                    case 14:
-                                                                        canGoRight = true;
-                                                                        canGoLeft = true;
-                                                                        break;
-                                                                        case 15:
-                                                                            canGoRight = false;
-                                                                            canGoLeft = true;
-                                                                            break;
-                
-            }
+        
     }
 
     //mudar a imagem do mapa para o mapa correspondente a posicao atual, baseado em uma array de imagens
@@ -190,3 +143,16 @@ function enviar(){
     //volta a variavel "firstprint" para true, desse jeito, o proximo movimento na lista de movimentos pendentes NAO tera uma virgula antes
     firstprint = true;
 }
+
+//essa eu peguei do stack overflow mas todo o resto fui eu que fiz
+function isPrime(num) {
+    var sqrtnum=Math.floor(Math.sqrt(num));
+      var prime = num != 1;
+      for(var i=2; i<sqrtnum+1; i++) {
+          if(num % i == 0) {
+              prime = false;
+              break;
+          }
+      }
+      return prime;
+  }
