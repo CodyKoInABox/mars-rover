@@ -11,6 +11,7 @@ body{
     background-color: rgba(0, 0, 0, 0.350);
     border-radius: 40px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0);
+    visibility: visible;
 }
 .button{
     width: 250px;
@@ -104,6 +105,7 @@ body{
     bottom: 0;
     background-color: #ccc;
     transition: .1s;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.300);
   }
   .slider:before {
     position: absolute;
@@ -116,6 +118,7 @@ body{
     background-size: 100%;
     background-color: white;
     transition: .1s;
+    box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.250);
   }
   input:checked + .slider:before {
     -webkit-transform: translateX(26px);
@@ -138,14 +141,63 @@ body{
   }
   .help{
     position: absolute;
+    padding: 0;
+    background-color: #ccc;
     font-family: arial;
-    font-weight: bolder;
+    font-weight: bold;
     font-size: 15px;
     margin-left: 285px;
     margin-top: 7.5px;
-    text-align: center;
     width: 15px;
     height: 15px;
-    outline: solid 0.5px black;
-    border-radius: 10px;
+    border: none;
+    border-radius: 15px;
+    outline: solid 0.75px black;
+  }
+  .help:hover{
+    background-color: #eeeeee;
+    cursor: pointer;
+  }
+  .helpcontainer{
+    position: absolute;
+    display: block;
+    background-color: white;
+    width: 50%;
+    min-width: 500px;
+    height: 600px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+    z-index: 2;
+    box-shadow: 0px 3px 10px black;
+    border-radius: 15px;
+    visibility: hidden;
+  }
+  .helpclose{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 23px;
+    border: none;
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  .helpclose:hover{
+    background-color: rgb(255, 93, 93);
+    cursor: pointer;
+  }
+  .modetitle{
+    font-family: arial;
+    text-align: center;
+  }
+  .modetext{
+    font-family: helvetica;
+    text-align: center;
   }

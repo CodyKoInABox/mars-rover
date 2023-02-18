@@ -10,11 +10,31 @@
 </head>
 <body>
     <script src="rover.js"></script>
+    <div class="helpcontainer" id="helpcontainer">
+        <button class="helpclose" onclick="closehelp()">X</button>
+        <br>
+        <h1 class="modetitle">Modo A:</h1>
+        <p class="modetext">Caso algum dos movimentos enviados seja invalido, apenas aquele movimento sera cancelado.
+            <br><br>
+            <b>Exemplo:</b> Iniciando na posicao 0, a sequencia "FRENTE, DIREITA" vai levar o rover ate a posicao 1.
+            <br><br>
+            Isso ocorre pois o movimento "FRENTE" foi cancelado por ser invalido, porem o "DIREITA" foi valido e logo, executado.
+        </p>
+        <br><br><br><br><br>
+        <h1 class="modetitle">Modo B:</h1>
+        <p class="modetext">Caso algum dos movimentos enviados seja invalido, todos os movimentos apos ele serao cancelados.
+            <br><br>
+            <b>Exemplo:</b> Iniciando na posicao 0, a sequencia "FRENTE, DIREITA" vai manter o rover na posicao 0.
+            <br><br>
+            Isso ocorre pois o movimento "FRENTE" foi cancelado por ser invalido, e como o "DIREITA" vem depois, foi cancelado tambem.
+        </p>
+        </p>
+    </div>
     <div id="buttoncontainer">
         <h1 id="title">MARS ROVER</h1>
         <div class="switchcontainer">
             <p class="mode">MODO:</p>
-            <p class="help">?</p>
+            <button class="help" onclick="openhelp()">?</button>
         <label class="switch">
             <input type="checkbox" id="modeswitch" onclick="modeswitch()">
             <span class="slider round"></span>

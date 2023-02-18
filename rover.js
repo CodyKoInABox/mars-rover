@@ -139,3 +139,15 @@ function modeswitch(){
         mode = false;
     }
 }
+
+//funcao que abre o pop-up que explica os modos
+function openhelp(){
+    document.getElementById("helpcontainer").style.visibility = "visible";
+    document.getElementById("buttoncontainer").style.visibility = "hidden";
+}
+
+//funcao que fecha o pop-up que explica os modos
+function closehelp(){
+    document.getElementById("helpcontainer").style.visibility = "hidden";
+    document.getElementById("buttoncontainer").style.visibility = "visible";
+}
