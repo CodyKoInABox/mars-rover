@@ -13,7 +13,6 @@ let mode = false;
 //le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
 mode = localStorage.getItem("mode");
 currentPosition = parseInt(localStorage.getItem("currentPosition"));
-console.log(currentPosition)
 
 
 //funcao puramente visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
@@ -25,7 +24,7 @@ function setmode(){
         document.getElementById("modeswitch").checked = false; 
     }
 
-    if(currentPosition == null){
+    if(currentPosition == "null"){
         currentPosition = 0;
     }
     //"chama" a funcao enviar que faz com que o rover va para a posicao que ele estava quando a pagina foi fechada pela ultima vez (usando o cache do navegador)
