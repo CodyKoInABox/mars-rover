@@ -8,24 +8,6 @@ let backward = 4;
 let firstprint = true;
 let canGoRight = true;
 let canGoLeft = false;
-//eu sinto que tem um jeito menos extenso de definir estas variaveis com as imagens
-let map0 = "map0.png";
-let map1 = "map1.png";
-let map2 = "map2.png";
-let map3 = "map3.png";
-let map4 = "map4.png";
-let map5 = "map5.png";
-let map6 = "map6.png";
-let map7 = "map7.png";
-let map8 = "map8.png";
-let map9 = "map9.png";
-let map10 = "map10.png";
-let map11 = "map11.png";
-let map12 = "map12.png";
-let map13 = "map13.png";
-let map14 = "map14.png";
-let map15 = "map15.png";
-let mapArray = [map0, map1, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12, map13, map14, map15];
 let rightBorder = [3, 7, 11, 15];
 
 //funcao que envia o comando "mover para esquerda" para a lista de comandos a serem executados, as proximas 3 funcoes seguem a mesma formatacao
@@ -127,8 +109,8 @@ function enviar(){
         
     }
 
-    //mudar a imagem do mapa para o mapa correspondente a posicao atual, baseado em uma array de imagens
-    document.getElementById("map").src=mapArray[currentPosition];
+    //mudar a imagem do mapa para o mapa correspondente a posicao atual
+    document.getElementById("map").src="map"+currentPosition+".png";
     //atualiza o texto de posicao para mostrar a posicao do rover
     document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
     //limpa a lista de movimentos pendentes, lembrando que essa lista server apenas para auxiliar o usuario
