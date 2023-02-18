@@ -112,28 +112,23 @@ function enviar(){
         if(Number.isInteger(currentPosition/4)){
             canGoLeft = false;
             canGoRight = true;
-            console.log("left border");
         }
         //caso a posicao esteja em uma array de posicoes, sabe-se que ela esta na borda direita, tentei usar operacoes matematicas aqui mas nao cheguei em nenhuma que desse um resultado para 3, 7, 11 e 15 e outro para os demais numeros da matriz
         else if(rightBorder.includes(currentPosition)){
             canGoLeft = true;
             canGoRight = false;
-            console.log("right border");
         }
         //se chegar ate esse else significa que nao esta em nenhuma das bordas
         else{
             canGoLeft = true;
             canGoRight = true;
-            console.log("not a border");
         }
-        console.log(currentPosition)
 
         
     }
 
     //mudar a imagem do mapa para o mapa correspondente a posicao atual, baseado em uma array de imagens
     document.getElementById("map").src=mapArray[currentPosition];
-
     //atualiza o texto de posicao para mostrar a posicao do rover
     document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
     //limpa a lista de movimentos pendentes, lembrando que essa lista server apenas para auxiliar o usuario
@@ -143,16 +138,3 @@ function enviar(){
     //volta a variavel "firstprint" para true, desse jeito, o proximo movimento na lista de movimentos pendentes NAO tera uma virgula antes
     firstprint = true;
 }
-
-//essa eu peguei do stack overflow mas todo o resto fui eu que fiz
-function isPrime(num) {
-    var sqrtnum=Math.floor(Math.sqrt(num));
-      var prime = num != 1;
-      for(var i=2; i<sqrtnum+1; i++) {
-          if(num % i == 0) {
-              prime = false;
-              break;
-          }
-      }
-      return prime;
-  }
