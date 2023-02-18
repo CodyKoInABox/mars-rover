@@ -10,6 +10,23 @@ let canGoRight = true;
 let canGoLeft = false;
 let rightBorder = [3, 7, 11, 15];
 let mode = false;
+//le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
+mode = localStorage.getItem("mode");
+currentPosition = parseInt(localStorage.getItem("currentPosition"));
+
+
+//funcao puramente visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
+function setmode(){
+    if(mode == "true"){
+        document.getElementById("modeswitch").checked = true;
+    }
+    else{
+        document.getElementById("modeswitch").checked = false; 
+    }
+    //"chama" a funcao enviar que faz com que o rover va para a posicao que ele estava quando a pagina foi fechada pela ultima vez (usando o cache do navegador)
+    //da pra criar uma funcao SO pra isso para melhorar a performance mas fica pro proximo commit
+    enviar()
+}
 
 //funcao que envia o comando "mover para esquerda" para a lista de comandos a serem executados, as proximas 3 funcoes seguem a mesma formatacao
 function esquerda(){
@@ -86,7 +103,7 @@ function enviar(){
             //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
             if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
                 //se estiver no modo false, ou seja, modo A, cancela APENAS o movimento invalido
-                if(mode==false){
+                if(mode=="false"){
                 movementValue = positionBackup
             }
             //se estiver no modo true modo, ou seja, modo A, cancela TODOS os movimentos APOS o movimento invalido
@@ -127,6 +144,8 @@ function enviar(){
     array = [];
     //volta a variavel "firstprint" para true, desse jeito, o proximo movimento na lista de movimentos pendentes NAO tera uma virgula antes
     firstprint = true;
+
+    localStorage.setItem("currentPosition", currentPosition);
 }
 
 
@@ -134,9 +153,11 @@ function enviar(){
 function modeswitch(){
     if(document.getElementById("modeswitch").checked){
         mode = true;
+        localStorage.setItem("mode", true);
     }
     else{
         mode = false;
+        localStorage.setItem("mode", false);
     }
 }
 
