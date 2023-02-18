@@ -135,7 +135,7 @@ function enviar(){
     
 
     //mudar a imagem do mapa para o mapa correspondente a posicao atual
-    document.getElementById("map").src="map"+currentPosition+".png";
+    document.getElementById("map").src="map"+currentPosition.toString()+".png";
     //atualiza o texto de posicao para mostrar a posicao do rover
     document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
     //limpa a lista de movimentos pendentes, lembrando que essa lista server apenas para auxiliar o usuario
