@@ -1,10 +1,11 @@
 body{
     background-color: #C89772;
     background-image: url(rover.png);
-    background-size: 100% auto;
+    background-size: cover;
+    background-repeat: no-repeat;
     
 }
-#buttoncontainer{
+  #buttoncontainer{
     margin: auto;
     width: 500px;
     margin-top: 2.5%;
@@ -12,7 +13,7 @@ body{
     border-radius: 40px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0);
     visibility: visible;
-}
+  }
 .button{
     width: 250px;
     background-color: hsl(0, 0%, 100%);
@@ -59,7 +60,7 @@ body{
     position: absolute;
     bottom: 0;
     left: 0;
-    font-size: 1vw;
+    font-size: 17px;
     margin-left: 5px;
 }
 #github{
@@ -69,7 +70,7 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 1.25vw;
+    font-size: 30px;
 }
 #github:hover{
     color: blue;
