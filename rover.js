@@ -10,7 +10,7 @@ let canGoRight = true;
 let canGoLeft = false;
 let rightBorder = [3, 7, 11, 15];
 let mode = false;
-//le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo
+//le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
 mode = localStorage.getItem("mode");
 currentPosition = parseInt(localStorage.getItem("currentPosition"));
 
@@ -23,8 +23,7 @@ function setmode(){
         document.getElementById("modeswitch").checked = false; 
     }
 
-    //parecido com quando eu pego o ultimo modo que o usuario usou no cache do navegador, essa parte pega a ultima posicao do rover, caso seja a primeira vez que a pessoa usa o site, a posicao sera 0
-    //currentPosition = parseInt(localStorage.getItem("currentPosition"));
+    //verifica se e a primeira vez que o usuario acessa o site, se for, a posicao sera 0
     console.log(currentPosition)
     if(currentPosition == null){
         currentPosition = 0;
