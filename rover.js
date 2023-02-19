@@ -24,14 +24,12 @@ function setmode(){
     }
 
     //verifica se e a primeira vez que o usuario acessa o site, se for, a posicao sera 0
-    console.log(currentPosition)
     if(Number.isInteger(currentPosition) !== true){
         currentPosition = 0;
     }
-    //"chama" a funcao enviar que faz com que o rover va para a posicao que ele estava quando a pagina foi fechada pela ultima vez (usando o cache do navegador)
-    //da pra criar uma funcao SO pra isso para melhorar a performance mas fica pro proximo commit
-    enviar()
-    console.log(currentPosition)
+
+    //chama a funcao que atualiza a posicao do rover baseado no cache do navegador
+    positionUpdate()
 }
 
 //funcao que envia o comando "mover para esquerda" para a lista de comandos a serem executados, as proximas 3 funcoes seguem a mesma formatacao
@@ -108,13 +106,15 @@ function enviar(){
             //um IF ELSE que move o rover caso o teste de posicao de um resultado entre 0 e 15 ou mantem o rover na mesma posicao em caso de algum outro resultado
             //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
             if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
-                //se estiver no modo false, ou seja, modo A, cancela APENAS o movimento invalido
-                if(mode=="false"){
-                movementValue = positionBackup
-            }
-            //se estiver no modo true modo, ou seja, modo A, cancela TODOS os movimentos APOS o movimento invalido
-            else{
+                //se estiver no modo true modo, ou seja, modo A, cancela TODOS os movimentos APOS o movimento invalido
+                console.log(mode)
+                if(mode==true){
                 i = array.length + 1;
+            }
+            //se estiver no modo false, ou seja, modo A, cancela APENAS o movimento invalido
+            else{
+                movementValue = positionBackup
+                
             }
             }
             else{
@@ -140,7 +140,7 @@ function enviar(){
         }
     
 
-    //mudar a imagem do mapa para o mapa correspondente a posicao atual
+    //muda a imagem do mapa para o mapa correspondente a posicao atual
     document.getElementById("map").src="map"+currentPosition+".png";
     //atualiza o texto de posicao para mostrar a posicao do rover
     document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
@@ -155,17 +155,44 @@ function enviar(){
     localStorage.setItem("currentPosition", currentPosition);
 }
 
+//fucao que atualiza a posicao do rover baseado no cache do navegador
+function positionUpdate(){
+        //muda a imagem do mapa para o mapa correspondente a posicao atual
+        document.getElementById("map").src="map"+currentPosition+".png";
+        //atualiza o texto de posicao para mostrar a posicao do rover
+        document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
+
+        //IF ELSE que verifica se a posicao atual esta em alguma borda da matriz e muda as bools que definem se o rover esta em uma borda ou nao de acordo, caso esteja em uma borda, nao deixa o rover realizar movimentos verticais usando movimentos laterais, ou seja, nao deixa ir da posicao 3 para a 4 usando o movimento "direita"
+        //caso a posicao seja 0 OU a posicao seja divisil por 4, ja que os unicos numeros divisiveis por 4 sao os da borda esquerda, nota-se que 0/4=infinidade, e o metodo isInteger considera inifinidade um int, logo, o codigo acaba considerando 0 divisivel por 4
+        if(Number.isInteger(currentPosition/4)){
+            canGoLeft = false;
+            canGoRight = true;
+        }
+        //caso a posicao esteja em uma array de posicoes, sabe-se que ela esta na borda direita, tentei usar operacoes matematicas aqui mas nao cheguei em nenhuma que desse um resultado para 3, 7, 11 e 15 e outro para os demais numeros da matriz
+        else if(rightBorder.includes(currentPosition)){
+            canGoLeft = true;
+            canGoRight = false;
+        }
+        //se chegar ate esse else significa que nao esta em nenhuma das bordas
+        else{
+            canGoLeft = true;
+            canGoRight = true;
+        }    
+}
+
 
 //funcao que muda a bool "mode" dependendo do switch que tem em cima do mapa, o valor "true" corresponde ao modo B e o valor "false" corresponde ao modo A
 //tambem envia o modo selecionado para o cache do navegador, dessa forma, o modo continuara igual quando o usuario abrir o site novamente
 function modeswitch(){
     if(document.getElementById("modeswitch").checked){
-        mode = true;
         localStorage.setItem("mode", true);
+        mode = true;
+        console.log("mode B" + mode)
     }
     else{
-        mode = false;
         localStorage.setItem("mode", false);
+        mode = false;
+        console.log("mode A" + mode)
     }
 }
 
