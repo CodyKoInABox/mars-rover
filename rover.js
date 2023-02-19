@@ -25,13 +25,14 @@ function setmode(){
 
     //parecido com quando eu pego o ultimo modo que o usuario usou no cache do navegador, essa parte pega a ultima posicao do rover, caso seja a primeira vez que a pessoa usa o site, a posicao sera 0, a construcao do IF ELSE ficou meio estranha mas foi o unico jeito que consegui fazer funcionar no github pages
     currentPosition = parseInt(localStorage.getItem("currentPosition"));
-    if(Number.isInteger(currentPosition) == "true"){}
-    else{
+    console.log(currentPosition)
+    if(Number.isInteger(currentPosition) !== "true"){
         currentPosition = 0;
     }
     //"chama" a funcao enviar que faz com que o rover va para a posicao que ele estava quando a pagina foi fechada pela ultima vez (usando o cache do navegador)
     //da pra criar uma funcao SO pra isso para melhorar a performance mas fica pro proximo commit
     enviar()
+    console.log(currentPosition)
 }
 
 //funcao que envia o comando "mover para esquerda" para a lista de comandos a serem executados, as proximas 3 funcoes seguem a mesma formatacao
