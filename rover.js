@@ -25,7 +25,7 @@ function setmode(){
 
     //verifica se e a primeira vez que o usuario acessa o site, se for, a posicao sera 0
     console.log(currentPosition)
-    if(currentPosition == null){
+    if(currentPosition == null || currentPosition == NaN){
         currentPosition = 0;
     }
     //"chama" a funcao enviar que faz com que o rover va para a posicao que ele estava quando a pagina foi fechada pela ultima vez (usando o cache do navegador)
