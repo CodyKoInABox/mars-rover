@@ -10,9 +10,8 @@ let canGoRight = true;
 let canGoLeft = false;
 let rightBorder = [3, 7, 11, 15];
 let mode = false;
-//le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
+//le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo
 mode = localStorage.getItem("mode");
-//currentPosition = parseInt(localStorage.getItem("currentPosition"));
 
 
 //funcao puramente visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
@@ -24,9 +23,9 @@ function setmode(){
         document.getElementById("modeswitch").checked = false; 
     }
 
+    //parecido com quando eu pego o ultimo modo que o usuario usou no cache do navegador, essa parte pega a ultima posicao do rover, caso seja a primeira vez que a pessoa usa o site, a posicao sera 0, a construcao do IF ELSE ficou meio estranha mas foi o unico jeito que consegui fazer funcionar no github pages
     currentPosition = parseInt(localStorage.getItem("currentPosition"));
-    if(Number.isInteger(currentPosition) == "true"){
-    }
+    if(Number.isInteger(currentPosition) == "true"){}
     else{
         currentPosition = 0;
     }
@@ -152,11 +151,13 @@ function enviar(){
     //volta a variavel "firstprint" para true, desse jeito, o proximo movimento na lista de movimentos pendentes NAO tera uma virgula antes
     firstprint = true;
 
+    //envia a posicao atual do rover para o cache do navegador, dessa forma, o rover continuara na mesma posicao quando o usuario abrir o site novamente
     localStorage.setItem("currentPosition", currentPosition);
 }
 
 
 //funcao que muda a bool "mode" dependendo do switch que tem em cima do mapa, o valor "true" corresponde ao modo B e o valor "false" corresponde ao modo A
+//tambem envia o modo selecionado para o cache do navegador, dessa forma, o modo continuara igual quando o usuario abrir o site novamente
 function modeswitch(){
     if(document.getElementById("modeswitch").checked){
         mode = true;
