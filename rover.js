@@ -13,7 +13,6 @@ let mode = false;
 //le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo
 mode = localStorage.getItem("mode");
 
-
 //funcao puramente visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
 function setmode(){
     if(mode == "true"){
@@ -26,7 +25,7 @@ function setmode(){
     //parecido com quando eu pego o ultimo modo que o usuario usou no cache do navegador, essa parte pega a ultima posicao do rover, caso seja a primeira vez que a pessoa usa o site, a posicao sera 0, a construcao do IF ELSE ficou meio estranha mas foi o unico jeito que consegui fazer funcionar no github pages
     currentPosition = parseInt(localStorage.getItem("currentPosition"));
     console.log(currentPosition)
-    if(Number.isInteger(currentPosition) !== "true"){
+    if(currentPosition == null){
         currentPosition = 0;
     }
     //"chama" a funcao enviar que faz com que o rover va para a posicao que ele estava quando a pagina foi fechada pela ultima vez (usando o cache do navegador)
