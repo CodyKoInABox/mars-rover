@@ -108,7 +108,7 @@ body{
     transition: .1s;
     box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.300);
   }
-  .slider:before {
+  .sliderMode:before {
     position: absolute;
     content: "";
     height: 22px;
@@ -121,11 +121,31 @@ body{
     transition: .1s;
     box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.250);
   }
-  input:checked + .slider:before {
+  input:checked + .sliderMode:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
     background-image: url(modeB.png);
+    background-size: 100%;
+  }
+  .sliderDelay:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-image: url(delayNo.png);
+    background-size: 100%;
+    background-color: white;
+    transition: .1s;
+    box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.250);
+  }
+  input:checked + .sliderDelay:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    background-image: url(delayYes.png);
     background-size: 100%;
   }
   .mode{

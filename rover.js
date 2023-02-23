@@ -10,12 +10,26 @@ let canGoRight = true;
 let canGoLeft = false;
 let rightBorder = [3, 7, 11, 15];
 let mode = false;
+let delay = false;
 //le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
 mode = localStorage.mode;
+delay = localStorage.delay;
 currentPosition = parseInt(localStorage.currentPosition);
 
-//funcao puramente visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
+
+let date = new Date();
+console.log(date);
+
+//funcao visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
 function setmode(){
+    if(delay == "true"){
+        document.getElementById("delayswitch").checked = true;
+    }
+    else{
+        document.getElementById("delayswitch").checked = false; 
+    }
+
+
     if(mode == "true"){
         document.getElementById("modeswitch").checked = true;
     }
@@ -88,9 +102,31 @@ function tras(){
     firstprint = false;
 }
 
+function enviardelay(){
+    if(delay=="true"){
+        setTimeout(enviar, 10000);
+    }
+    else{
+        enviar();
+    }
+}
+
+
+// working as a clock
+let delaytime = 30;
+function enviardelayTEST(){
+    if(delaytime>0){
+        delaytime--;
+        setTimeout(enviardelayTEST, 1000);
+        console.log(delaytime)
+    }
+}
+
+
 //funcao que move o rover utilizando uma lista de comandos criada pelas 4 funcoes anteriores
 function enviar(){
     //cria um backup da posicao atual
+    
     let positionBackup = currentPosition;
 
         for(let i = 0; i<array.length; i++){
@@ -107,7 +143,6 @@ function enviar(){
             //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
             if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
                 //se estiver no modo true modo, ou seja, modo A, cancela TODOS os movimentos APOS o movimento invalido
-                console.log(mode)
                 if(mode==true){
                 i = array.length + 1;
             }
@@ -153,6 +188,7 @@ function enviar(){
 
     //envia a posicao atual do rover para o cache do navegador, dessa forma, o rover continuara na mesma posicao quando o usuario abrir o site novamente
     localStorage.setItem("currentPosition", currentPosition);
+    console.log("function")
 }
 
 //fucao que atualiza a posicao do rover baseado no cache do navegador
@@ -187,12 +223,21 @@ function modeswitch(){
     if(document.getElementById("modeswitch").checked){
         localStorage.setItem("mode", true);
         mode = true;
-        console.log("mode B" + mode)
     }
     else{
         localStorage.setItem("mode", false);
         mode = false;
-        console.log("mode A" + mode)
+    }
+}
+
+function delayswitch(){
+    if(document.getElementById("delayswitch").checked){
+        localStorage.setItem("delay", true);
+        delay = true;
+    }
+    else{
+        localStorage.setItem("delay", false);
+        delay = false;
     }
 }
 
