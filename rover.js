@@ -11,6 +11,7 @@ let canGoLeft = false;
 let rightBorder = [3, 7, 11, 15];
 let mode = false;
 let delay = false;
+let delaytime = undefined;
 //le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
 mode = localStorage.mode;
 delay = localStorage.delay;
@@ -103,8 +104,10 @@ function tras(){
 }
 
 function enviardelay(){
-    if(delay=="true"){
-        setTimeout(enviar, 10000);
+    console.log(delay)
+    if(delay=="true" || delay==true){
+        delaytime = 5;
+        enviardelayTEST()
     }
     else{
         enviar();
@@ -112,14 +115,26 @@ function enviardelay(){
 }
 
 
-// working as a clock
-let delaytime = 30;
+
 function enviardelayTEST(){
-    if(delaytime>0){
-        delaytime--;
-        setTimeout(enviardelayTEST, 1000);
+    if(delaytime>1){
         console.log(delaytime)
+        delaytime--;
+       document.getElementById("enviartext").textContent = minutify(delaytime);
+        setTimeout(enviardelayTEST, 1000);
     }
+    else{
+        enviar()
+    }
+}
+
+//transforma em minutos e segundos
+function minutify(input){
+    let minutes = parseInt(input/60);
+    let minutesstring = minutes.toString();
+    let seconds = input%60;
+    let secondsstring = seconds.toString();
+    return (minutesstring.padStart(2, "0") + ":" + secondsstring.padStart(2, "0"))
 }
 
 
@@ -188,7 +203,7 @@ function enviar(){
 
     //envia a posicao atual do rover para o cache do navegador, dessa forma, o rover continuara na mesma posicao quando o usuario abrir o site novamente
     localStorage.setItem("currentPosition", currentPosition);
-    console.log("function")
+    document.getElementById("enviartext").innerHTML = "Enviar";
 }
 
 //fucao que atualiza a posicao do rover baseado no cache do navegador
