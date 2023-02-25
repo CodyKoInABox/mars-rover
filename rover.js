@@ -30,7 +30,6 @@ let oldDate = localStorage.oldDate;
 
 function bodyOnLoad(){  
     updateDelaySeconds();
-    openhelpDelay();
     setmode();
     if(delay == "true"){
         dateDifference();
