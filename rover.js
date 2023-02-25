@@ -29,9 +29,10 @@ let newDate = new Date();
 let oldDate = localStorage.oldDate;
 
 function bodyOnLoad(){  
-    updateDelaySeconds();
+    updateDelaySecondsInitial();
     closehelpDelay();
     setmode();
+    updateList();
     if(delay == "true"){
         dateDifference();
         applyDateDifference();
@@ -60,6 +61,30 @@ function applyDateDifference(){
         delaytime = delaytime + dateDifferenceSeconds;
         buttonDisable();
         enviardelay();
+}
+
+function updateList(){
+    array = JSON.parse(localStorage.array);
+    for(let i = 0; i<array.length; i++){
+        let temp = array[i];
+        if(i!=0){
+            document.getElementById("historico").innerHTML += ", ";
+        }
+        switch (temp){
+            case 1:
+                document.getElementById("historico").innerHTML += "Direita";
+                break;
+            case -1:
+                document.getElementById("historico").innerHTML += "Esquerda";
+                break;
+            case 4:
+                document.getElementById("historico").innerHTML += "Tras";
+                break;
+            case -4:
+                document.getElementById("historico").innerHTML += "Frente";
+                break;  
+        }
+    }
 }
 
 
@@ -163,6 +188,8 @@ function buttonEnable(){
 
 function preenviar(){
     if(delay=="true" || delay==true){
+        localStorage.setItem("array", JSON.stringify(array));
+
         buttonDisable();
         //tempo do delay em segundos. (o timer nao e muito confiavel, ele acerta o tempo com uma margen de -+30s)
         delaytime = delayValue;
@@ -338,15 +365,28 @@ function closehelpDelay(){
     document.getElementById("buttoncontainer").style.visibility = "visible";
 }
 
+function updateDelaySecondsInitial(){
+    delaySeconds = parseInt(localStorage.delaySeconds);
+    document.getElementById("delaySeconds").value = delaySeconds;
+    updateDelaySeconds();
+}
+
+
 function updateDelaySeconds(){
+
+    //mantem o input no range desejado
     if(parseInt(document.getElementById("delaySeconds").value) > 3600){
         document.getElementById("delaySeconds").value = 3600;
     }
     if(parseInt(document.getElementById("delaySeconds").value) < 5){
         document.getElementById("delaySeconds").value = 5;
     }
+
+    //transforma de float para int caso necessario
     delaySeconds = parseInt(document.getElementById("delaySeconds").value);
     document.getElementById("delaySeconds").value = delaySeconds;
+
+    localStorage.setItem("delaySeconds", delaySeconds);
     delayValue = delaySeconds;
 
     //multiplica o tempo em segundos pela velocidade da luz para descobrir a distancia e divide por 2000 pois: divide por 1000 para transformar de metros em KM, divide por 2 para descobrir apenas a distancia de ida.
@@ -355,14 +395,17 @@ function updateDelaySeconds(){
 }
 
 function updateDelayKilometers(){
+    //mantem o input no range desejado
     if(parseInt(document.getElementById("delayKilometers").value) > 179875474){
         document.getElementById("delayKilometers").value =  179875474;
     }
     if(parseInt(document.getElementById("delayKilometers").value) < 749481){
         document.getElementById("delayKilometers").value =  749481;
     }
+        //transforma de float para int caso necessario
     delayKilometers = parseInt(document.getElementById("delayKilometers").value);
     document.getElementById("delayKilometers").value = delayKilometers;
+
     delaySeconds = Math.trunc(((delayKilometers*2000)/299792458)+1);
     delayValue = delaySeconds;
     document.getElementById("delaySeconds").value = delaySeconds;
