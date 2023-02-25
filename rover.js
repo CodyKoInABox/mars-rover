@@ -30,6 +30,7 @@ let oldDate = localStorage.oldDate;
 
 function bodyOnLoad(){  
     updateDelaySeconds();
+    closehelpDelay();
     setmode();
     if(delay == "true"){
         dateDifference();
@@ -249,7 +250,7 @@ function enviar(){
     
 
     //muda a imagem do mapa para o mapa correspondente a posicao atual
-    document.getElementById("map").src="map"+currentPosition+".png";
+    document.getElementById("map").src="images/map"+currentPosition+".png";
     //atualiza o texto de posicao para mostrar a posicao do rover
     document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
     //limpa a lista de movimentos pendentes, lembrando que essa lista server apenas para auxiliar o usuario
@@ -267,7 +268,7 @@ function enviar(){
 //fucao que atualiza a posicao do rover baseado no cache do navegador
 function positionUpdate(){
         //muda a imagem do mapa para o mapa correspondente a posicao atual
-        document.getElementById("map").src="map"+currentPosition+".png";
+        document.getElementById("map").src="images/map"+currentPosition+".png";
         //atualiza o texto de posicao para mostrar a posicao do rover
         document.getElementById("position").innerHTML = "Posicao = " + currentPosition;
 

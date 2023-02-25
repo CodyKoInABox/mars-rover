@@ -1,6 +1,6 @@
 body{
   background-color: #C89772;
-  background-image: url(rover.png);
+  background-image: url(images/rover.png);
   background-size: cover;
   background-repeat: no-repeat;
   
@@ -123,7 +123,7 @@ body{
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-image: url(modeA.png);
+  background-image: url(images/modeA.png);
   background-size: 100%;
   background-color: white;
   transition: .1s;
@@ -133,7 +133,7 @@ input:checked + .sliderMode:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
-  background-image: url(modeB.png);
+  background-image: url(images/modeB.png);
   background-size: 100%;
 }
 .sliderDelay:before {
@@ -143,7 +143,7 @@ input:checked + .sliderMode:before {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-image: url(delayNo.png);
+  background-image: url(images/delayNo.png);
   background-size: 100%;
   background-color: white;
   transition: .1s;
@@ -153,7 +153,7 @@ input:checked + .sliderDelay:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
-  background-image: url(delayYes.png);
+  background-image: url(images/delayYes.png);
   background-size: 100%;
 }
 .mode{
@@ -233,5 +233,4 @@ input:checked + .sliderDelay:before {
 .chooseDelayContainer{
   width: fit-content;
   margin: auto;
-  
 }
