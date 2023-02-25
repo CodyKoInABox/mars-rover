@@ -1,3 +1,6 @@
+//as partes mais novas do codigo estao bem baguncadas e sem muitos comentarios, no futuro talvez eu organize tudo
+
+
 //definicao de variaveis
 let currentPosition = 0;
 let array = [];
@@ -10,12 +13,61 @@ let canGoRight = true;
 let canGoLeft = false;
 let rightBorder = [3, 7, 11, 15];
 let mode = false;
+let delay = false;
+let delaytime = undefined;
+let dateDifferenceSeconds = 0;
 //le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
 mode = localStorage.mode;
+delay = localStorage.delay;
+delaytime = parseInt(localStorage.delayTime);
 currentPosition = parseInt(localStorage.currentPosition);
 
-//funcao puramente visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
+let newDate = new Date();
+let oldDate = localStorage.oldDate;
+
+function bodyOnLoad(){   
+    setmode();
+    if(delay == "true"){
+        dateDifference();
+        applyDateDifference();
+    }
+    else{
+        return;
+    }
+}
+
+//executa a funcao beforeClose() quando o usuario fecha a aba
+window.onbeforeunload = function beforeClose(){
+    oldDate = new Date();
+    localStorage.setItem("oldDate", oldDate);
+    localStorage.setItem("delayTime", delaytime);
+
+    //o return null evita que um pop-up seja aberto e acabe impedindo com que o usuario feche a aba
+    return null;
+}
+
+//descobre a diferenca entre duas datas em segundos
+function dateDifference(){
+    dateDifferenceSeconds =(Date.parse(oldDate) - Date.parse(newDate))/1000
+}
+
+function applyDateDifference(){
+        delaytime = delaytime + dateDifferenceSeconds;
+        buttonDisable();
+        enviardelay();
+}
+
+
+//funcao visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
 function setmode(){
+    if(delay == "true"){
+        document.getElementById("delayswitch").checked = true;
+    }
+    else{
+        document.getElementById("delayswitch").checked = false; 
+    }
+
+
     if(mode == "true"){
         document.getElementById("modeswitch").checked = true;
     }
@@ -88,9 +140,62 @@ function tras(){
     firstprint = false;
 }
 
+function buttonDisable(){
+    document.getElementById("enviar").disabled=true;
+    document.getElementById("frente").disabled=true;
+    document.getElementById("tras").disabled=true;
+    document.getElementById("esquerda").disabled=true;
+    document.getElementById("direita").disabled=true;
+}
+
+function buttonEnable(){
+    document.getElementById("enviar").disabled=false;
+    document.getElementById("frente").disabled=false;
+    document.getElementById("tras").disabled=false;
+    document.getElementById("esquerda").disabled=false;
+    document.getElementById("direita").disabled=false;
+}
+
+function preenviar(){
+    if(delay=="true" || delay==true){
+        buttonDisable();
+        //tempo do delay em segundos. (o timer nao e muito confiavel, ele acerta o tempo com uma margen de -+30s)
+        delaytime = 1200;
+        enviardelay()
+    }
+    else{
+        enviar();
+    }
+}
+
+
+
+function enviardelay(){
+    if(delaytime>1){
+        delaytime--;
+       document.getElementById("enviartext").textContent = minutify(delaytime);
+        setTimeout(enviardelay, 1000);
+    }
+    else{
+        enviar();
+        buttonEnable();
+    }
+}
+
+//transforma em minutos e segundos
+function minutify(input){
+    let minutes = parseInt(input/60);
+    let minutesstring = minutes.toString();
+    let seconds = input%60;
+    let secondsstring = seconds.toString();
+    return (minutesstring.padStart(2, "0") + ":" + secondsstring.padStart(2, "0"))
+}
+
+
 //funcao que move o rover utilizando uma lista de comandos criada pelas 4 funcoes anteriores
 function enviar(){
     //cria um backup da posicao atual
+    
     let positionBackup = currentPosition;
 
         for(let i = 0; i<array.length; i++){
@@ -107,7 +212,6 @@ function enviar(){
             //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
             if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
                 //se estiver no modo true modo, ou seja, modo A, cancela TODOS os movimentos APOS o movimento invalido
-                console.log(mode)
                 if(mode==true){
                 i = array.length + 1;
             }
@@ -153,6 +257,7 @@ function enviar(){
 
     //envia a posicao atual do rover para o cache do navegador, dessa forma, o rover continuara na mesma posicao quando o usuario abrir o site novamente
     localStorage.setItem("currentPosition", currentPosition);
+    document.getElementById("enviartext").innerHTML = "Enviar";
 }
 
 //fucao que atualiza a posicao do rover baseado no cache do navegador
@@ -187,12 +292,22 @@ function modeswitch(){
     if(document.getElementById("modeswitch").checked){
         localStorage.setItem("mode", true);
         mode = true;
-        console.log("mode B" + mode)
     }
     else{
         localStorage.setItem("mode", false);
         mode = false;
-        console.log("mode A" + mode)
+    }
+}
+
+function delayswitch(){
+    if(document.getElementById("delayswitch").checked){
+        localStorage.setItem("delay", true);
+        delay = true;
+    }
+    else{
+        localStorage.setItem("delay", false);
+        delaytime = 0;
+        delay = false;
     }
 }
 
@@ -205,5 +320,15 @@ function openhelp(){
 //funcao que fecha o pop-up que explica os modos
 function closehelp(){
     document.getElementById("helpcontainer").style.visibility = "hidden";
+    document.getElementById("buttoncontainer").style.visibility = "visible";
+}
+
+function openhelpDelay(){
+    document.getElementById("helpcontainerDelay").style.visibility = "visible";
+    document.getElementById("buttoncontainer").style.visibility = "hidden";
+}
+
+function closehelpDelay(){
+    document.getElementById("helpcontainerDelay").style.visibility = "hidden";
     document.getElementById("buttoncontainer").style.visibility = "visible";
 }

@@ -1,204 +1,232 @@
 body{
-    background-color: #C89772;
-    background-image: url(rover.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    
+  background-color: #C89772;
+  background-image: url(rover.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  
 }
-  #buttoncontainer{
-    margin: auto;
-    width: 500px;
-    margin-top: 2.5%;
-    background-color: rgba(0, 0, 0, 0.350);
-    border-radius: 40px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0);
-    visibility: visible;
-  }
+#buttoncontainer{
+  margin: auto;
+  width: 500px;
+  margin-top: 2.5%;
+  background-color: rgba(0, 0, 0, 0.350);
+  border-radius: 40px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0);
+  visibility: visible;
+}
 .button{
-    width: 250px;
-    background-color: hsl(0, 0%, 100%);
-    border-radius: 10px;
+  width: 250px;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 10px;
+  box-shadow: 0px 2px 3px rgb(0, 0, 0, 0.350);
 }
 .button:hover{
-    background-color: hsl(0, 0%, 85%);
-    cursor: pointer;
+  background-color: hsl(0, 0%, 85%);
+  cursor: pointer;
+}
+.button:disabled{
+  background-color: hsl(0, 0%, 85%);
+  cursor: default;
+}
+#enviar:disabled{
+  color: black;
 }
 #title{
-    text-align: center;
-    font-family: arial;
-    margin-bottom: -5px;
+  text-align: center;
+  font-family: arial;
+  margin-bottom: -5px;
 }
 .position{
-    margin-top: 5%;
-    text-align: center;
-    font-family: arial;
-    font-size: larger;
-    font-weight: bolder;
+  margin-top: 5%;
+  text-align: center;
+  font-family: arial;
+  font-size: larger;
+  font-weight: bolder;
 }
 .historico{
-    margin-top: 15px;
-    text-align: center;
-    font-family: arial;
-    font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+  font-family: arial;
+  font-weight: bold;
 }
 #enviar{
-    width: 100px;
-    margin-left: 200px;
-    margin-top: 40px;
+  width: 100px;
+  margin-left: 200px;
+  margin-top: 40px;
 }
 #frente{
-    margin-left: 125px;
+  margin-left: 125px;
 }
 #tras{
-    margin-left: 125px;
+  margin-left: 125px;
 }
 
 .name{
-    color: black;
-    font-family: Arial;
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 17px;
-    margin-left: 5px;
+  color: black;
+  font-family: Arial;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 17px;
+  margin-left: 5px;
 }
 #github{
-    color: black;
-    font-family: Arial;
-    font-weight: bold;
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 30px;
+  color: black;
+  font-family: Arial;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 30px;
 }
 #github:hover{
-    color: blue;
+  color: blue;
 }
 #map{
-    width: 250px;
-    margin-left: 125px;
-    margin-top: 15px;
-    margin-bottom: 20px;
+  width: 250px;
+  margin-left: 125px;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 .switchcontainer{
-    width: 100%;
+  width: 100%;
 }
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 30px;
-    margin-left: 220px;
-    margin-top: 0;
-  }
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .1s;
-    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.300);
-  }
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-image: url(modeA.png);
-    background-size: 100%;
-    background-color: white;
-    transition: .1s;
-    box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.250);
-  }
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-    background-image: url(modeB.png);
-    background-size: 100%;
-  }
-  .mode{
-    font-family: arial;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 0;
-  }
-  .slider {
-    border-radius: 5px;
-  }
-  .slider:before{
-    border-radius: 4px;
-  }
-  .help{
-    position: absolute;
-    padding: 0;
-    background-color: #ccc;
-    font-family: arial;
-    font-weight: bold;
-    font-size: 15px;
-    margin-left: 285px;
-    margin-top: 7.5px;
-    width: 15px;
-    height: 15px;
-    border: none;
-    border-radius: 15px;
-    outline: solid 0.75px black;
-  }
-  .help:hover{
-    background-color: #eeeeee;
-    cursor: pointer;
-  }
-  .helpcontainer{
-    position: absolute;
-    display: block;
-    background-color: white;
-    width: 50%;
-    min-width: 500px;
-    height: 600px;
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto;
-    z-index: 2;
-    box-shadow: 0px 3px 10px black;
-    border-radius: 15px;
-    visibility: hidden;
-  }
-  .helpclose{
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 10px;
-    margin-right: 10px;
-    width: 30px;
-    height: 30px;
-    font-family: arial;
-    font-weight: bold;
-    font-size: 23px;
-    border: none;
-    background-color: #ccc;
-    border-radius: 4px;
-  }
-  .helpclose:hover{
-    background-color: rgb(255, 93, 93);
-    cursor: pointer;
-  }
-  .modetitle{
-    font-family: arial;
-    text-align: center;
-  }
-  .modetext{
-    font-family: helvetica;
-    text-align: center;
-  }
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin-left: 220px;
+  margin-top: 0;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .1s;
+  box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.300);
+}
+.sliderMode:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-image: url(modeA.png);
+  background-size: 100%;
+  background-color: white;
+  transition: .1s;
+  box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.250);
+}
+input:checked + .sliderMode:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  background-image: url(modeB.png);
+  background-size: 100%;
+}
+.sliderDelay:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-image: url(delayNo.png);
+  background-size: 100%;
+  background-color: white;
+  transition: .1s;
+  box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.250);
+}
+input:checked + .sliderDelay:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  background-image: url(delayYes.png);
+  background-size: 100%;
+}
+.mode{
+  font-family: arial;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0;
+}
+.slider {
+  border-radius: 5px;
+}
+.slider:before{
+  border-radius: 4px;
+}
+.help{
+  position: absolute;
+  padding: 0;
+  background-color: #ccc;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 15px;
+  margin-left: 285px;
+  margin-top: 7.5px;
+  width: 15px;
+  height: 15px;
+  border: none;
+  border-radius: 15px;
+  outline: solid 0.75px black;
+}
+.help:hover{
+  background-color: rgb(208, 255, 138);
+  cursor: pointer;
+}
+.helpcontainer{
+  position: absolute;
+  display: block;
+  background-color: white;
+  width: 50%;
+  min-width: 500px;
+  height: fit-content;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  z-index: 2;
+  box-shadow: 0px 3px 10px black;
+  border-radius: 15px;
+  visibility: hidden;
+}
+.helpclose{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 23px;
+  border: none;
+  background-color: #ccc;
+  border-radius: 4px;
+}
+.helpclose:hover{
+  background-color: rgb(255, 93, 93);
+  cursor: pointer;
+}
+.modetitle{
+  font-family: arial;
+  text-align: center;
+}
+.modetext{
+  font-family: helvetica;
+  text-align: center;
+}
