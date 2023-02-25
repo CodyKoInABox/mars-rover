@@ -400,8 +400,8 @@ function updateDelaySeconds(){
 
 function updateDelayKilometers(){
     //mantem o input no range desejado
-    if(parseInt(document.getElementById("delayKilometers").value) > 179875474){
-        document.getElementById("delayKilometers").value =  179875474;
+    if(parseInt(document.getElementById("delayKilometers").value) > 539626424){
+        document.getElementById("delayKilometers").value =  539626424;
     }
     if(parseInt(document.getElementById("delayKilometers").value) < 749481){
         document.getElementById("delayKilometers").value =  749481;
