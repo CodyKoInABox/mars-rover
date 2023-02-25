@@ -368,6 +368,9 @@ function closehelpDelay(){
 function updateDelaySecondsInitial(){
     delaySeconds = parseInt(localStorage.delaySeconds);
     document.getElementById("delaySeconds").value = delaySeconds;
+    if(delaySeconds == NaN){
+        delaySeconds = 1200;
+    }
     updateDelaySeconds();
 }
 
