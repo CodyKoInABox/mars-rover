@@ -1,3 +1,6 @@
+//as partes mais novas do codigo estao bem baguncadas e sem muitos comentarios, no futuro talvez eu organize tudo
+
+
 //definicao de variaveis
 let currentPosition = 0;
 let array = [];
@@ -12,14 +15,48 @@ let rightBorder = [3, 7, 11, 15];
 let mode = false;
 let delay = false;
 let delaytime = undefined;
+let dateDifferenceSeconds = 0;
 //le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
 mode = localStorage.mode;
 delay = localStorage.delay;
+delaytime = parseInt(localStorage.delayTime);
 currentPosition = parseInt(localStorage.currentPosition);
 
+let newDate = new Date();
+let oldDate = localStorage.oldDate;
 
-let date = new Date();
-console.log(date);
+function bodyOnLoad(){   
+    setmode();
+    if(delay == "true"){
+        dateDifference();
+        applyDateDifference();
+    }
+    else{
+        return;
+    }
+}
+
+//executa a funcao beforeClose() quando o usuario fecha a aba
+window.onbeforeunload = function beforeClose(){
+    oldDate = new Date();
+    localStorage.setItem("oldDate", oldDate);
+    localStorage.setItem("delayTime", delaytime);
+
+    //o return null evita que um pop-up seja aberto e acabe impedindo com que o usuario feche a aba
+    return null;
+}
+
+//descobre a diferenca entre duas datas em segundos
+function dateDifference(){
+    dateDifferenceSeconds =(Date.parse(oldDate) - Date.parse(newDate))/1000
+}
+
+function applyDateDifference(){
+        delaytime = delaytime + dateDifferenceSeconds;
+        buttonDisable();
+        enviardelay();
+}
+
 
 //funcao visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
 function setmode(){
@@ -103,11 +140,28 @@ function tras(){
     firstprint = false;
 }
 
-function enviardelay(){
-    console.log(delay)
+function buttonDisable(){
+    document.getElementById("enviar").disabled=true;
+    document.getElementById("frente").disabled=true;
+    document.getElementById("tras").disabled=true;
+    document.getElementById("esquerda").disabled=true;
+    document.getElementById("direita").disabled=true;
+}
+
+function buttonEnable(){
+    document.getElementById("enviar").disabled=false;
+    document.getElementById("frente").disabled=false;
+    document.getElementById("tras").disabled=false;
+    document.getElementById("esquerda").disabled=false;
+    document.getElementById("direita").disabled=false;
+}
+
+function preenviar(){
     if(delay=="true" || delay==true){
-        delaytime = 5;
-        enviardelayTEST()
+        buttonDisable();
+        //tempo do delay em segundos. (o timer nao e muito confiavel, ele acerta o tempo com uma margen de -+30s)
+        delaytime = 1200;
+        enviardelay()
     }
     else{
         enviar();
@@ -116,15 +170,15 @@ function enviardelay(){
 
 
 
-function enviardelayTEST(){
+function enviardelay(){
     if(delaytime>1){
-        console.log(delaytime)
         delaytime--;
        document.getElementById("enviartext").textContent = minutify(delaytime);
-        setTimeout(enviardelayTEST, 1000);
+        setTimeout(enviardelay, 1000);
     }
     else{
-        enviar()
+        enviar();
+        buttonEnable();
     }
 }
 
@@ -252,6 +306,7 @@ function delayswitch(){
     }
     else{
         localStorage.setItem("delay", false);
+        delaytime = 0;
         delay = false;
     }
 }
@@ -265,5 +320,15 @@ function openhelp(){
 //funcao que fecha o pop-up que explica os modos
 function closehelp(){
     document.getElementById("helpcontainer").style.visibility = "hidden";
+    document.getElementById("buttoncontainer").style.visibility = "visible";
+}
+
+function openhelpDelay(){
+    document.getElementById("helpcontainerDelay").style.visibility = "visible";
+    document.getElementById("buttoncontainer").style.visibility = "hidden";
+}
+
+function closehelpDelay(){
+    document.getElementById("helpcontainerDelay").style.visibility = "hidden";
     document.getElementById("buttoncontainer").style.visibility = "visible";
 }

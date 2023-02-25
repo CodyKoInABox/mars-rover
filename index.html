@@ -8,7 +8,7 @@
     <link rel="icon" href="mars.png">
     <title>Mars Rover</title>
 </head>
-<body onload="setmode()">
+<body onload="bodyOnLoad()">
     <script src="rover.js"></script>
     <div class="helpcontainer" id="helpcontainer">
         <button class="helpclose" onclick="closehelp()">X</button>
@@ -30,6 +30,24 @@
         </p>
         </p>
     </div>
+    <div class="helpcontainer" id="helpcontainerDelay">
+        <button class="helpclose" onclick="closehelpDelay()">X</button>
+        <br>
+        <h1 class="modetitle">Delay:</h1>
+        <p class="modetext"><b>Simula o delay que existe no mundo real quando alguem da Terra tenta se comunicar com algo em Marte.</b>
+            <br>
+            <p class="modetext">Como esse site esta hospedado no GitHub Pages, nao consigo puxar dados de uma database para utilizar a distancia real (como os dois planetas estao orbitando ao redor do sol em orbitas e velocidades diferentes, a distancia esta sempre mudando). Por isso, utilizei um valor fixo de 20 minutos, 10 para a mensagem chegar ate marte e 10 para uma resposta voltar</p>
+            <br>
+            <p class="modetext"><b>ATENCAO:</b></p>
+            <p class="modetext">Caso voce feche a aba e depois abra novamente, o delay sera atualizado em tempo real.</p>
+            <br><br>
+            <p class="modetext"><b>Exemplo:</b> Se voce fecha essa pagina faltando 10 minutos, e abre ela 5 minutos depois, o delay estara com 5 minutos faltando.</p>
+            <p class="modetext">Fiz isso comparando o horario em que a pagina foi fechada pela ultima vez e o horario em que ela foi aberta.</p>
+            <br>
+            <p class="modetext"><b>PARA CANCELAR O DELAY</b> basta utilizar o switch chamado de "Delay", ele ira zerar o contador.</p>
+            <br>
+            <p class="modetext"><small>Eu queria impedir o usuario de mudar o modo enquanto o delay estiver ativo, pois os comandos ja teriam sido enviados, logo, nao seria possivel mudar o modo, porem ainda nao descobri como implementar isso.</small></p>
+        </div>
     <div id="buttoncontainer">
         <h1 id="title">MARS ROVER</h1>
         <div class="switchcontainer">
@@ -40,7 +58,7 @@
             <span class="slider sliderMode round"></span>
           </label>
           <p class="mode">DELAY:</p>
-          <button class="help" onclick="openhelp()">?</button>
+          <button class="help" onclick="openhelpDelay()">?</button>
       <label class="switch">
           <input type="checkbox" id="delayswitch" onclick="delayswitch()">
           <span class="slider sliderDelay round"></span>
@@ -48,9 +66,9 @@
         </div>
         <img src="map0.png" id="map">
         <button class="button" id="frente" onclick="frente()"><h1>FRENTE</h1></button>
-        <button class="button" onclick="esquerda()"><h1>ESQUERDA</h1></button><button class="button" onclick="direita()"><h1>DIREITA</h1></button>
+        <button class="button" id="esquerda" onclick="esquerda()"><h1>ESQUERDA</h1></button><button class="button" id="direita" onclick="direita()"><h1>DIREITA</h1></button>
         <button class="button" id="tras" onclick="tras()"><h1>TRAS</h1></button>
-        <button class="button" id="enviar" onclick="enviardelay()"><h1 id="enviartext">Enviar</h1></button>
+        <button class="button" id="enviar" onclick="preenviar()"><h1 id="enviartext">Enviar</h1></button>
         <p class="position" id="position">Posicao = 0</p>
         <p class="historico" id="historico">Movimentos pendentes: </p>
     </div>

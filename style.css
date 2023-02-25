@@ -18,10 +18,18 @@ body{
   width: 250px;
   background-color: hsl(0, 0%, 100%);
   border-radius: 10px;
+  box-shadow: 0px 2px 3px rgb(0, 0, 0, 0.350);
 }
 .button:hover{
   background-color: hsl(0, 0%, 85%);
   cursor: pointer;
+}
+.button:disabled{
+  background-color: hsl(0, 0%, 85%);
+  cursor: default;
+}
+#enviar:disabled{
+  color: black;
 }
 #title{
   text-align: center;
@@ -176,7 +184,7 @@ input:checked + .sliderDelay:before {
   outline: solid 0.75px black;
 }
 .help:hover{
-  background-color: #eeeeee;
+  background-color: rgb(208, 255, 138);
   cursor: pointer;
 }
 .helpcontainer{
@@ -185,7 +193,7 @@ input:checked + .sliderDelay:before {
   background-color: white;
   width: 50%;
   min-width: 500px;
-  height: 600px;
+  height: fit-content;
   left: 0; 
   right: 0; 
   margin-left: auto; 
