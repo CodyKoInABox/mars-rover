@@ -34,9 +34,21 @@
         <button class="helpclose" onclick="closehelpDelay()">X</button>
         <br>
         <h1 class="modetitle">Delay:</h1>
-        <p class="modetext"><b>Simula o delay que existe no mundo real quando alguem da Terra tenta se comunicar com algo em Marte.</b>
+        <p class="modetext">Simula o delay que existe no mundo real quando alguem da Terra tenta se comunicar com algo em Marte.</p>
             <br>
-            <p class="modetext">Como esse site esta hospedado no GitHub Pages, nao consigo puxar dados de uma database para utilizar a distancia real (como os dois planetas estao orbitando ao redor do sol em orbitas e velocidades diferentes, a distancia esta sempre mudando). Por isso, utilizei um valor fixo de 20 minutos, 10 para a mensagem chegar ate marte e 10 para uma resposta voltar</p>
+            <p class="modetext"><b>Escolha o seu delay:</b></p>
+            <p class="modetext" style="margin-top: -6px;"><small>(segundos para ir e voltar de Marte ou distancia para apenas ir)</small></p>
+            <div class="chooseDelayContainer">
+            <p class="modetext" style="display: inline;"><b>Distancia em KM:</b></p><br>
+            <input type="number" id="delayKilometers" min="749481" max="179875474" onchange="updateDelayKilometers()">
+            <p class="modetext" style="display: inline;"> km ate Marte.</p>
+            <br><br>
+            <p class="modetext" style="display: inline;"><b>Tempo em S:</b></p><br>
+            <input type="number" id="delaySeconds" min="5" max="3600" value="1200" onchange="updateDelaySeconds()">
+            <p class="modetext" style="display: inline;"> segundos</p>
+            </div>
+            <br>
+            <p class="modetext" style="margin-top: -6px;"><small>(ondas de radio viajam na velocidade da luz de 299.792.458 m/s)</small></p>
             <br>
             <p class="modetext"><b>ATENCAO:</b></p>
             <p class="modetext">Caso voce feche a aba e depois abra novamente, o delay sera atualizado em tempo real.</p>

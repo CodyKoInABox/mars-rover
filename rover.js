@@ -16,6 +16,9 @@ let mode = false;
 let delay = false;
 let delaytime = undefined;
 let dateDifferenceSeconds = 0;
+let delaySeconds;
+let delayKilometers;
+let delayValue = 5;
 //le o cache do navegador para ver se o usuario ja usou o site antes, caso tenha usado, "lembra" de qual modo o usuario usou por ultimo e tambem lembra da ultima posicao do rover
 mode = localStorage.mode;
 delay = localStorage.delay;
@@ -25,7 +28,9 @@ currentPosition = parseInt(localStorage.currentPosition);
 let newDate = new Date();
 let oldDate = localStorage.oldDate;
 
-function bodyOnLoad(){   
+function bodyOnLoad(){  
+    updateDelaySeconds();
+    openhelpDelay();
     setmode();
     if(delay == "true"){
         dateDifference();
@@ -160,7 +165,7 @@ function preenviar(){
     if(delay=="true" || delay==true){
         buttonDisable();
         //tempo do delay em segundos. (o timer nao e muito confiavel, ele acerta o tempo com uma margen de -+30s)
-        delaytime = 1200;
+        delaytime = delayValue;
         enviardelay()
     }
     else{
@@ -331,4 +336,34 @@ function openhelpDelay(){
 function closehelpDelay(){
     document.getElementById("helpcontainerDelay").style.visibility = "hidden";
     document.getElementById("buttoncontainer").style.visibility = "visible";
+}
+
+function updateDelaySeconds(){
+    if(parseInt(document.getElementById("delaySeconds").value) > 3600){
+        document.getElementById("delaySeconds").value = 3600;
+    }
+    if(parseInt(document.getElementById("delaySeconds").value) < 5){
+        document.getElementById("delaySeconds").value = 5;
+    }
+    delaySeconds = parseInt(document.getElementById("delaySeconds").value);
+    document.getElementById("delaySeconds").value = delaySeconds;
+    delayValue = delaySeconds;
+
+    //multiplica o tempo em segundos pela velocidade da luz para descobrir a distancia e divide por 2000 pois: divide por 1000 para transformar de metros em KM, divide por 2 para descobrir apenas a distancia de ida.
+    delayKilometers = Math.trunc((delaySeconds * 299792458)/2000);
+    document.getElementById("delayKilometers").value = delayKilometers;
+}
+
+function updateDelayKilometers(){
+    if(parseInt(document.getElementById("delayKilometers").value) > 179875474){
+        document.getElementById("delayKilometers").value =  179875474;
+    }
+    if(parseInt(document.getElementById("delayKilometers").value) < 749481){
+        document.getElementById("delayKilometers").value =  749481;
+    }
+    delayKilometers = parseInt(document.getElementById("delayKilometers").value);
+    document.getElementById("delayKilometers").value = delayKilometers;
+    delaySeconds = Math.trunc(((delayKilometers*2000)/299792458)+1);
+    delayValue = delaySeconds;
+    document.getElementById("delaySeconds").value = delaySeconds;
 }
