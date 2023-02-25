@@ -1,6 +1,5 @@
 //as partes mais novas do codigo estao bem baguncadas e sem muitos comentarios, no futuro talvez eu organize tudo
 
-
 //definicao de variaveis
 let currentPosition = 0;
 let array = [];
@@ -382,7 +381,7 @@ function updateDelaySeconds(){
     if(parseInt(document.getElementById("delaySeconds").value) > 3600){
         document.getElementById("delaySeconds").value = 3600;
     }
-    if(parseInt(document.getElementById("delaySeconds").value) < 5){
+    if(parseInt(document.getElementById("delaySeconds").value) < 5 || document.getElementById("delaySeconds").value === ""){
         document.getElementById("delaySeconds").value = 5;
     }
 
@@ -403,7 +402,7 @@ function updateDelayKilometers(){
     if(parseInt(document.getElementById("delayKilometers").value) > 539626424){
         document.getElementById("delayKilometers").value =  539626424;
     }
-    if(parseInt(document.getElementById("delayKilometers").value) < 749481){
+    if(parseInt(document.getElementById("delayKilometers").value) < 749481 || document.getElementById("delayKilometers").value === ""){
         document.getElementById("delayKilometers").value =  749481;
     }
         //transforma de float para int caso necessario
