@@ -89,6 +89,7 @@ function updateList(){
 
 //funcao visual, ela apenas mostra ao usuario qual modo esta selecionado, se o cache do navegador indicar que o modo deve ser o B, o switch que tem na tela vai automaticamente para a posicao B
 function setmode(){
+    mode = localStorage.mode
     if(delay == "true"){
         document.getElementById("delayswitch").checked = true;
     }
@@ -99,9 +100,13 @@ function setmode(){
 
     if(mode == "true"){
         document.getElementById("modeswitch").checked = true;
+        mode = true;
+        console.log(mode)
     }
     else{
-        document.getElementById("modeswitch").checked = false; 
+        document.getElementById("modeswitch").checked = false;
+        mode = false; 
+        console.log(mode)
     }
 
     //verifica se e a primeira vez que o usuario acessa o site, se for, a posicao sera 0
@@ -243,7 +248,7 @@ function enviar(){
             //tambem checa se o rover esta em alguma borda da matriz, caso esteja, nao deixa usar o movimento lateral para ir para a linha de baixo ou de cima
             if(positionTest<0 || positionTest>15 || canGoRight == false && movementValue == 1 || canGoLeft == false && movementValue == -1){ 
                 //se estiver no modo true modo, ou seja, modo A, cancela TODOS os movimentos APOS o movimento invalido
-                if(mode==true){
+                if(mode==true || mode=="true"){
                 i = array.length + 1;
             }
             //se estiver no modo false, ou seja, modo A, cancela APENAS o movimento invalido
@@ -289,6 +294,8 @@ function enviar(){
     //envia a posicao atual do rover para o cache do navegador, dessa forma, o rover continuara na mesma posicao quando o usuario abrir o site novamente
     localStorage.setItem("currentPosition", currentPosition);
     document.getElementById("enviartext").innerHTML = "Enviar";
+    array = [];
+    localStorage.setItem("array", array);
 }
 
 //fucao que atualiza a posicao do rover baseado no cache do navegador
