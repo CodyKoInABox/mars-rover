@@ -65,17 +65,17 @@ body{
   color: black;
   font-family: Arial;
   font-weight: bold;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
-  font-size: 17px;
+  font-size: 18px;
   margin-left: 5px;
 }
 #github{
   color: black;
   font-family: Arial;
   font-weight: bold;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   font-size: 30px;
